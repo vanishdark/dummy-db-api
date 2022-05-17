@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { SimpleRequestItem } from 'src/simple-request-item';
 import { SimpleRequestService } from './simple-request.service';
 
-@Controller('simple-request')
+@Controller()
 export class SimpleRequestController {
   constructor(private simpleRequestService: SimpleRequestService) {}
 
