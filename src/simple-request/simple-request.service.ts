@@ -10,6 +10,7 @@ export class SimpleRequestService {
     return new Promise<SimpleRequestItem[]>(async (resolve, reject) => {
       const request = await this.httpService.get(
         `https://raw.githubusercontent.com/${params.user}/${params.repo}/main/db.json`,
+        {}
       );
       request.subscribe((response) => {
         if (response.status === 200) {
@@ -22,8 +23,10 @@ export class SimpleRequestService {
     return new Promise<SimpleRequestItem[]>(async (resolve, reject) => {
       const request = await this.httpService.get(
         `https://raw.githubusercontent.com/${params.user}/${params.repo}/main/db.json`,
+        {}
       );
       request.subscribe((response) => {
+        console.log(params.index);
         if (response.status === 200) {
           resolve(response.data[params.key][params.index]);
         }
