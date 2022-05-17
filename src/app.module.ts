@@ -1,5 +1,6 @@
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './logging.interceptor';
 import { SimpleRequestModule } from './simple-request/simple-request.module';
 
 @Module({
@@ -14,6 +15,10 @@ import { SimpleRequestModule } from './simple-request/simple-request.module';
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
     },
   ],
 })
