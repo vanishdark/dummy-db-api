@@ -6,6 +6,7 @@ services:
     build:
       context: .
       target: development
+    image: registry.gitlab.com/true-compliance/mobile-app-nativescript
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
