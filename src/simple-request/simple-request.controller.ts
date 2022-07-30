@@ -14,6 +14,20 @@ import { SimpleRequestService } from './simple-request.service';
 export class SimpleRequestController {
   constructor(private simpleRequestService: SimpleRequestService) {}
 
+  @ApiParam({ name: 'user' })
+  @ApiParam({ name: 'repo' })
+  @Get(':user/:repo')
+  async find(@Param() params): Promise<any> {
+    const r = await this.simpleRequestService.find(params);
+    if (r === 'error') {
+      throw new HttpException(
+        'Bad Request - Validate your params',
+        HttpStatus.NOT_FOUND
+      );
+    }
+    return r;
+  }
+
   @ApiParam({ name: 'key' })
   @ApiParam({ name: 'repo' })
   @ApiParam({ name: 'user' })

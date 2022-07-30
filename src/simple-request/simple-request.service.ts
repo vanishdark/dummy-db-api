@@ -1,12 +1,29 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import e from 'express';
 import { ErrorBody } from 'src/erroBody.model';
 import { SimpleRequestItem } from '../simple-request-item';
 @Injectable()
 export class SimpleRequestService {
   constructor(private httpService: HttpService) {}
 
+  async find(params: any): Promise<any> {
+    return new Promise<any>(async (resolve) => {
+      const request = this.httpService.get(
+        `https://raw.githubusercontent.com/${params.user}/${params.repo}/main/db.json`,
+        {}
+      );
+      request.subscribe({
+        next: (value) => {
+          if (value.status === 200) {
+            resolve({ api_data: value.data });
+          }
+        },
+        error: () => {
+          resolve('error');
+        },
+      });
+    });
+  }
   async findByKey(params: any): Promise<SimpleRequestItem[] | string> {
     return new Promise<SimpleRequestItem[] | string>(async (resolve) => {
       const request = this.httpService.get(
